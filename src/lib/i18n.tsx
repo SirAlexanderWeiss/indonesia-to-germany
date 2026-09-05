@@ -317,11 +317,19 @@ export const kontak = {
     email: "Email",
     goal: "Tujuan ke Jerman",
     level: "Level sekarang",
+    courseLevel: "Kelas yang diminati",
+    courseLevels: [
+      { value: "A1", label: "A1 — mulai dari nol" },
+      { value: "A2", label: "A2 — lanjutan setelah A1" },
+      { value: "unsure", label: "Belum yakin, tolong bantu pilih" },
+    ],
     message: "Pesan",
     messagePlaceholder:
       "Halo! Saya berencana pindah ke Jerman tahun depan dan ingin mulai dari A1…",
     submit: "Kirim pesan",
-    sent: "Terima kasih! Program email kamu akan terbuka dengan pesan yang sudah siap dikirim.",
+    sending: "Mengirim…",
+    sent: "Terima kasih! Pesan kamu sudah terkirim. Saya akan balas lewat email secepatnya.",
+    failed: "Maaf, pesan gagal terkirim. Coba lagi sebentar lagi.",
     subject: "Pendaftaran kelas A1",
     labels: { name: "Nama", email: "Email", goal: "Tujuan", level: "Level" },
     errors: {
