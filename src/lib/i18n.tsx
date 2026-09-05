@@ -32,7 +32,7 @@ export function useLang() {
   return useContext(LangContext);
 }
 
-export function useT<T>(dict: Record<Lang, T>): T {
+export function useT<T extends Record<Lang, unknown>>(dict: T): T[Lang] {
   const { lang } = useLang();
   return dict[lang];
 }
