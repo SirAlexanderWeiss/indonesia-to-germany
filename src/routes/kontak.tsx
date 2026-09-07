@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, type FormEvent } from "react";
 
-import { kontak as kontakDict, useT } from "@/lib/i18n";
+import { supabase } from "@/integrations/supabase/client";
+import { kontak as kontakDict, useLang, useT } from "@/lib/i18n";
 
 export const Route = createFileRoute("/kontak")({
   head: () => ({
