@@ -368,11 +368,19 @@ export const kontak = {
     email: "E-Mail",
     goal: "Ziel in Deutschland",
     level: "Aktuelles Niveau",
+    courseLevel: "Gewünschter Kurs",
+    courseLevels: [
+      { value: "A1", label: "A1 — Start bei null" },
+      { value: "A2", label: "A2 — Aufbau nach A1" },
+      { value: "unsure", label: "Noch unsicher, bitte beraten" },
+    ],
     message: "Nachricht",
     messagePlaceholder:
       "Hallo! Ich möchte nächstes Jahr nach Deutschland ziehen und bei A1 anfangen…",
     submit: "Nachricht senden",
-    sent: "Danke! Dein E-Mail-Programm öffnet sich mit der fertigen Nachricht.",
+    sending: "Wird gesendet…",
+    sent: "Danke! Deine Nachricht ist angekommen. Ich melde mich per E-Mail.",
+    failed: "Das hat leider nicht geklappt. Bitte versuch es gleich noch einmal.",
     subject: "Anmeldung A1-Kurs",
     labels: { name: "Name", email: "E-Mail", goal: "Ziel", level: "Niveau" },
     errors: {
