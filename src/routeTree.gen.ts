@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as KontakRouteImport } from './routes/kontak'
 import { Route as KursusRouteImport } from './routes/kursus'
 import { Route as TentangRouteImport } from './routes/tentang'
@@ -17,6 +18,11 @@ import { Route as TentangRouteImport } from './routes/tentang'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const KontakRoute = KontakRouteImport.update({
@@ -37,12 +43,14 @@ const TentangRoute = TentangRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/kontak': typeof KontakRoute
   '/kursus': typeof KursusRoute
   '/tentang': typeof TentangRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/kontak': typeof KontakRoute
   '/kursus': typeof KursusRoute
   '/tentang': typeof TentangRoute
@@ -50,20 +58,22 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/kontak': typeof KontakRoute
   '/kursus': typeof KursusRoute
   '/tentang': typeof TentangRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/kontak' | '/kursus' | '/tentang'
+  fullPaths: '/' | '/auth' | '/kontak' | '/kursus' | '/tentang'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/kontak' | '/kursus' | '/tentang'
-  id: '__root__' | '/' | '/kontak' | '/kursus' | '/tentang'
+  to: '/' | '/auth' | '/kontak' | '/kursus' | '/tentang'
+  id: '__root__' | '/' | '/auth' | '/kontak' | '/kursus' | '/tentang'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthRoute: typeof AuthRoute
   KontakRoute: typeof KontakRoute
   KursusRoute: typeof KursusRoute
   TentangRoute: typeof TentangRoute
@@ -76,6 +86,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/kontak': {
@@ -104,6 +121,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthRoute: AuthRoute,
   KontakRoute: KontakRoute,
   KursusRoute: KursusRoute,
   TentangRoute: TentangRoute,
