@@ -164,6 +164,23 @@ function Kontak() {
                 ))}
               </select>
             </div>
+            <div className="sm:col-span-2">
+              <label htmlFor="courseLevel" className="text-sm font-semibold">
+                {t.courseLevel}
+              </label>
+              <select
+                id="courseLevel"
+                value={form.courseLevel}
+                onChange={(e) => setForm({ ...form, courseLevel: e.target.value })}
+                className={field}
+              >
+                {t.courseLevels.map((c) => (
+                  <option key={c.value} value={c.value}>
+                    {c.label}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
 
           <div className="mt-6">
@@ -184,16 +201,23 @@ function Kontak() {
 
           <button
             type="submit"
-            className="mt-7 w-full rounded-full bg-primary px-7 py-3 text-sm font-semibold text-primary-foreground transition-transform hover:-translate-y-0.5 sm:w-auto"
+            disabled={status === "sending"}
+            className="mt-7 w-full rounded-full bg-primary px-7 py-3 text-sm font-semibold text-primary-foreground transition-transform hover:-translate-y-0.5 disabled:opacity-60 sm:w-auto"
           >
-            {t.submit}
+            {status === "sending" ? t.sending : t.submit}
           </button>
 
-          {sent && (
+          {status === "sent" && (
             <p className="mt-4 rounded-xl bg-secondary px-4 py-3 text-sm text-secondary-foreground">
               {t.sent}
             </p>
           )}
+          {status === "failed" && (
+            <p className="mt-4 rounded-xl bg-destructive/10 px-4 py-3 text-sm text-destructive">
+              {t.failed}
+            </p>
+          )}
+
         </form>
 
         <aside className="space-y-6">
