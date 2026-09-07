@@ -25,15 +25,21 @@ export const Route = createFileRoute("/kontak")({
   component: Kontak,
 });
 
-const CONTACT_EMAIL = "hallo@example.com";
-
 type Errors = Partial<Record<"name" | "email" | "message", string>>;
 
 function Kontak() {
   const t = useT(kontakDict);
-  const [form, setForm] = useState({ name: "", email: "", goalIndex: 0, levelIndex: 0, message: "" });
+  const { lang } = useLang();
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    goalIndex: 0,
+    levelIndex: 0,
+    courseLevel: "A1",
+    message: "",
+  });
   const [errors, setErrors] = useState<Errors>({});
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "failed">("idle");
 
   const goal = t.goals[form.goalIndex] ?? t.goals[0];
   const level = t.levels[form.levelIndex] ?? t.levels[0];
@@ -53,27 +59,31 @@ function Kontak() {
     return e;
   }
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const e = validate();
     setErrors(e);
     if (Object.keys(e).length > 0) return;
 
-    const subject = `${t.subject} — ${form.name.trim()}`;
-    const body = [
-      `${t.labels.name}: ${form.name.trim()}`,
-      `${t.labels.email}: ${form.email.trim()}`,
-      `${t.labels.goal}: ${goal}`,
-      `${t.labels.level}: ${level}`,
-      "",
-      form.message.trim(),
-    ].join("\n");
+    setStatus("sending");
+    const { error } = await supabase.from("contact_requests").insert({
+      name: form.name.trim(),
+      email: form.email.trim(),
+      goal,
+      current_level: level,
+      course_level: form.courseLevel,
+      message: form.message.trim(),
+      language: lang,
+    });
 
-    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(
-      subject,
-    )}&body=${encodeURIComponent(body)}`;
-    setSent(true);
+    if (error) {
+      setStatus("failed");
+      return;
+    }
+    setStatus("sent");
+    setForm({ name: "", email: "", goalIndex: 0, levelIndex: 0, courseLevel: "A1", message: "" });
   }
+
 
   const field =
     "mt-2 w-full rounded-xl border border-input bg-card px-4 py-3 text-sm text-foreground outline-none transition-colors focus:border-primary focus:ring-3 focus:ring-primary/20";
