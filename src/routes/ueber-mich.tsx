@@ -3,7 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import teacherPortrait from "@/assets/teacher-portrait.jpg";
 import { tentang as tentangDict, useT } from "@/lib/i18n";
 
-export const Route = createFileRoute("/tentang")({
+export const Route = createFileRoute("/ueber-mich")({
   head: () => ({
     meta: [
       { title: "Tentang Saya — Dari Bali ke Jerman" },
@@ -17,9 +17,9 @@ export const Route = createFileRoute("/tentang")({
         property: "og:description",
         content: "Belajar dari orang yang pernah melewati jalan yang sama: Bali, bahasa, visa, Jerman.",
       },
-      { property: "og:url", content: "/tentang" },
+      { property: "og:url", content: "/ueber-mich" },
     ],
-    links: [{ rel: "canonical", href: "/tentang" }],
+    links: [{ rel: "canonical", href: "/ueber-mich" }],
   }),
   component: Tentang,
 });
@@ -65,7 +65,7 @@ function Tentang() {
         </div>
 
         <Link
-          to="/kontak"
+          to="/kontakt"
           className="mt-14 inline-flex rounded-full bg-primary px-7 py-3 text-sm font-semibold text-primary-foreground"
         >
           {t.cta}

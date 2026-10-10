@@ -29,7 +29,7 @@ export function SiteFooter() {
           <p className="eyebrow text-gold">{t.welcome}</p>
           <p className="mt-4 text-sm text-jungle-foreground/75">{t.hours}</p>
           <Link
-            to="/kontak"
+            to="/kontakt"
             className="mt-5 inline-flex rounded-full bg-gold px-5 py-2 text-sm font-semibold text-gold-foreground"
           >
             {t.cta}

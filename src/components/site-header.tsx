@@ -57,7 +57,7 @@ export function SiteHeader() {
           ))}
           {toggle}
           <Link
-            to="/kontak"
+            to="/kontakt"
             className="rounded-full bg-primary px-5 py-2 text-sm font-semibold text-primary-foreground transition-transform hover:-translate-y-0.5"
           >
             {t.cta}
