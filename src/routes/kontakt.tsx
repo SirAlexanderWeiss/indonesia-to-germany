@@ -1,8 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, type FormEvent } from "react";
 
-import { supabase } from "@/integrations/supabase/client";
 import { kontak as kontakDict, useLang, useT } from "@/lib/i18n";
+
+const CONTACT_EMAIL = "hallo@example.com";
 
 export const Route = createFileRoute("/kontakt")({
   head: () => ({
@@ -39,7 +40,7 @@ function Kontak() {
     message: "",
   });
   const [errors, setErrors] = useState<Errors>({});
-  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "failed">("idle");
+  const [status, setStatus] = useState<"idle" | "sent">("idle");
 
   const goal = t.goals[form.goalIndex] ?? t.goals[0];
   const level = t.levels[form.levelIndex] ?? t.levels[0];
@@ -59,29 +60,26 @@ function Kontak() {
     return e;
   }
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const e = validate();
     setErrors(e);
     if (Object.keys(e).length > 0) return;
 
-    setStatus("sending");
-    const { error } = await supabase.from("contact_requests").insert({
-      name: form.name.trim(),
-      email: form.email.trim(),
-      goal,
-      current_level: level,
-      course_level: form.courseLevel,
-      message: form.message.trim(),
-      language: lang,
-    });
+    const subject = `Anfrage ${form.courseLevel} — ${form.name.trim()}`;
+    const body = [
+      `Name: ${form.name.trim()}`,
+      `E-Mail: ${form.email.trim()}`,
+      `Ziel: ${goal}`,
+      `Aktuelles Niveau: ${level}`,
+      `Kurs: ${form.courseLevel}`,
+      `Sprache: ${lang.toUpperCase()}`,
+      "",
+      form.message.trim(),
+    ].join("\n");
 
-    if (error) {
-      setStatus("failed");
-      return;
-    }
+    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     setStatus("sent");
-    setForm({ name: "", email: "", goalIndex: 0, levelIndex: 0, courseLevel: "A1", message: "" });
   }
 
 
@@ -201,20 +199,14 @@ function Kontak() {
 
           <button
             type="submit"
-            disabled={status === "sending"}
-            className="mt-7 w-full rounded-full bg-primary px-7 py-3 text-sm font-semibold text-primary-foreground transition-transform hover:-translate-y-0.5 disabled:opacity-60 sm:w-auto"
+            className="mt-7 w-full rounded-full bg-primary px-7 py-3 text-sm font-semibold text-primary-foreground transition-transform hover:-translate-y-0.5 sm:w-auto"
           >
-            {status === "sending" ? t.sending : t.submit}
+            {t.submit}
           </button>
 
           {status === "sent" && (
             <p className="mt-4 rounded-xl bg-secondary px-4 py-3 text-sm text-secondary-foreground">
               {t.sent}
-            </p>
-          )}
-          {status === "failed" && (
-            <p className="mt-4 rounded-xl bg-destructive/10 px-4 py-3 text-sm text-destructive">
-              {t.failed}
             </p>
           )}
 
