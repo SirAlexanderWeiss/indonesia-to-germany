@@ -14,72 +14,7 @@ export type Database = {
   }
   public: {
     Tables: {
-      contact_requests: {
-        Row: {
-          admin_note: string
-          course_level: string
-          created_at: string
-          current_level: string
-          email: string
-          goal: string
-          id: string
-          language: string
-          message: string
-          name: string
-          status: string
-          updated_at: string
-        }
-        Insert: {
-          admin_note?: string
-          course_level?: string
-          created_at?: string
-          current_level?: string
-          email: string
-          goal?: string
-          id?: string
-          language?: string
-          message?: string
-          name: string
-          status?: string
-          updated_at?: string
-        }
-        Update: {
-          admin_note?: string
-          course_level?: string
-          created_at?: string
-          current_level?: string
-          email?: string
-          goal?: string
-          id?: string
-          language?: string
-          message?: string
-          name?: string
-          status?: string
-          updated_at?: string
-        }
-        Relationships: []
-      }
-      user_roles: {
-        Row: {
-          created_at: string
-          id: string
-          role: Database["public"]["Enums"]["app_role"]
-          user_id: string
-        }
-        Insert: {
-          created_at?: string
-          id?: string
-          role: Database["public"]["Enums"]["app_role"]
-          user_id: string
-        }
-        Update: {
-          created_at?: string
-          id?: string
-          role?: Database["public"]["Enums"]["app_role"]
-          user_id?: string
-        }
-        Relationships: []
-      }
+      [_ in never]: never
     }
     Views: {
       [_ in never]: never
