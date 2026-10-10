@@ -10,97 +10,63 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
-import { Route as AuthRouteImport } from './routes/auth'
-import { Route as KontakRouteImport } from './routes/kontak'
-import { Route as KursusRouteImport } from './routes/kursus'
-import { Route as TentangRouteImport } from './routes/tentang'
-import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
+import { Route as KontaktRouteImport } from './routes/kontakt'
+import { Route as KurseRouteImport } from './routes/kurse'
+import { Route as UeberMichRouteImport } from './routes/ueber-mich'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
-  id: '/_authenticated',
+const KontaktRoute = KontaktRouteImport.update({
+  id: '/kontakt',
+  path: '/kontakt',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthRoute = AuthRouteImport.update({
-  id: '/auth',
-  path: '/auth',
+const KurseRoute = KurseRouteImport.update({
+  id: '/kurse',
+  path: '/kurse',
   getParentRoute: () => rootRouteImport,
 } as any)
-const KontakRoute = KontakRouteImport.update({
-  id: '/kontak',
-  path: '/kontak',
+const UeberMichRoute = UeberMichRouteImport.update({
+  id: '/ueber-mich',
+  path: '/ueber-mich',
   getParentRoute: () => rootRouteImport,
-} as any)
-const KursusRoute = KursusRouteImport.update({
-  id: '/kursus',
-  path: '/kursus',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const TentangRoute = TentangRouteImport.update({
-  id: '/tentang',
-  path: '/tentang',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
-  id: '/admin',
-  path: '/admin',
-  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/auth': typeof AuthRoute
-  '/kontak': typeof KontakRoute
-  '/kursus': typeof KursusRoute
-  '/tentang': typeof TentangRoute
-  '/admin': typeof AuthenticatedAdminRoute
+  '/kontakt': typeof KontaktRoute
+  '/kurse': typeof KurseRoute
+  '/ueber-mich': typeof UeberMichRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/auth': typeof AuthRoute
-  '/kontak': typeof KontakRoute
-  '/kursus': typeof KursusRoute
-  '/tentang': typeof TentangRoute
-  '/admin': typeof AuthenticatedAdminRoute
+  '/kontakt': typeof KontaktRoute
+  '/kurse': typeof KurseRoute
+  '/ueber-mich': typeof UeberMichRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
-  '/auth': typeof AuthRoute
-  '/kontak': typeof KontakRoute
-  '/kursus': typeof KursusRoute
-  '/tentang': typeof TentangRoute
-  '/_authenticated/admin': typeof AuthenticatedAdminRoute
+  '/kontakt': typeof KontaktRoute
+  '/kurse': typeof KurseRoute
+  '/ueber-mich': typeof UeberMichRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/kontak' | '/kursus' | '/tentang' | '/admin'
+  fullPaths: '/' | '/kontakt' | '/kurse' | '/ueber-mich'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/kontak' | '/kursus' | '/tentang' | '/admin'
-  id:
-    | '__root__'
-    | '/'
-    | '/_authenticated'
-    | '/auth'
-    | '/kontak'
-    | '/kursus'
-    | '/tentang'
-    | '/_authenticated/admin'
+  to: '/' | '/kontakt' | '/kurse' | '/ueber-mich'
+  id: '__root__' | '/' | '/kontakt' | '/kurse' | '/ueber-mich'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
-  AuthRoute: typeof AuthRoute
-  KontakRoute: typeof KontakRoute
-  KursusRoute: typeof KursusRoute
-  TentangRoute: typeof TentangRoute
+  KontaktRoute: typeof KontaktRoute
+  KurseRoute: typeof KurseRoute
+  UeberMichRoute: typeof UeberMichRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -112,69 +78,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_authenticated': {
-      id: '/_authenticated'
-      path: ''
-      fullPath: '/'
-      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+    '/kontakt': {
+      id: '/kontakt'
+      path: '/kontakt'
+      fullPath: '/kontakt'
+      preLoaderRoute: typeof KontaktRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/auth': {
-      id: '/auth'
-      path: '/auth'
-      fullPath: '/auth'
-      preLoaderRoute: typeof AuthRouteImport
+    '/kurse': {
+      id: '/kurse'
+      path: '/kurse'
+      fullPath: '/kurse'
+      preLoaderRoute: typeof KurseRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/kontak': {
-      id: '/kontak'
-      path: '/kontak'
-      fullPath: '/kontak'
-      preLoaderRoute: typeof KontakRouteImport
+    '/ueber-mich': {
+      id: '/ueber-mich'
+      path: '/ueber-mich'
+      fullPath: '/ueber-mich'
+      preLoaderRoute: typeof UeberMichRouteImport
       parentRoute: typeof rootRouteImport
-    }
-    '/kursus': {
-      id: '/kursus'
-      path: '/kursus'
-      fullPath: '/kursus'
-      preLoaderRoute: typeof KursusRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/tentang': {
-      id: '/tentang'
-      path: '/tentang'
-      fullPath: '/tentang'
-      preLoaderRoute: typeof TentangRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_authenticated/admin': {
-      id: '/_authenticated/admin'
-      path: '/admin'
-      fullPath: '/admin'
-      preLoaderRoute: typeof AuthenticatedAdminRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
     }
   }
 }
 
-interface AuthenticatedRouteRouteChildren {
-  AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
-}
-
-const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
-  AuthenticatedAdminRoute: AuthenticatedAdminRoute,
-}
-
-const AuthenticatedRouteRouteWithChildren =
-  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
-  AuthRoute: AuthRoute,
-  KontakRoute: KontakRoute,
-  KursusRoute: KursusRoute,
-  TentangRoute: TentangRoute,
+  KontaktRoute: KontaktRoute,
+  KurseRoute: KurseRoute,
+  UeberMichRoute: UeberMichRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
