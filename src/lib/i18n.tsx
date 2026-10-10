@@ -327,9 +327,7 @@ export const kontak = {
     messagePlaceholder:
       "Halo! Saya berencana pindah ke Jerman tahun depan dan ingin mulai dari A1…",
     submit: "Kirim pesan",
-    sending: "Mengirim…",
     sent: "Terima kasih! Pesan kamu sudah terkirim. Saya akan balas lewat email secepatnya.",
-    failed: "Maaf, pesan gagal terkirim. Coba lagi sebentar lagi.",
     subject: "Pendaftaran kelas A1",
     labels: { name: "Nama", email: "Email", goal: "Tujuan", level: "Level" },
     errors: {
@@ -378,9 +376,7 @@ export const kontak = {
     messagePlaceholder:
       "Hallo! Ich möchte nächstes Jahr nach Deutschland ziehen und bei A1 anfangen…",
     submit: "Nachricht senden",
-    sending: "Wird gesendet…",
     sent: "Danke! Deine Nachricht ist angekommen. Ich melde mich per E-Mail.",
-    failed: "Das hat leider nicht geklappt. Bitte versuch es gleich noch einmal.",
     subject: "Anmeldung A1-Kurs",
     labels: { name: "Name", email: "E-Mail", goal: "Ziel", level: "Niveau" },
     errors: {
@@ -408,87 +404,5 @@ export const kontak = {
       { q: "Findet der Unterricht online statt?", a: "Ja, komplett über Zoom — von überall in Indonesien." },
       { q: "Kann ich eine offizielle Prüfung machen?", a: "Ich bereite auf Goethe/telc A1 vor und erkläre die Anmeldung." },
     ],
-  },
-} as const;
-
-export const admin = {
-  id: {
-    title: "Panel Admin",
-    subtitle: "Semua permintaan kontak dari calon murid.",
-    signOut: "Keluar",
-    empty: "Belum ada permintaan kontak.",
-    loading: "Memuat…",
-    error: "Gagal memuat data.",
-    noAccess:
-      "Akun ini belum punya akses admin. Kirim alamat email di bawah ini supaya bisa diaktifkan.",
-    cols: {
-      date: "Tanggal",
-      name: "Nama",
-      email: "Email",
-      courseLevel: "Kelas",
-      level: "Level sekarang",
-      goal: "Tujuan",
-      message: "Pesan",
-      language: "Bahasa",
-      status: "Status",
-      note: "Catatan",
-    },
-    status: { new: "Baru", in_progress: "Diproses", done: "Selesai" },
-    notePlaceholder: "Catatan pribadi…",
-    saveNote: "Simpan catatan",
-    saved: "Tersimpan",
-  },
-  de: {
-    title: "Admin-Bereich",
-    subtitle: "Alle Kontaktanfragen von Interessentinnen und Interessenten.",
-    signOut: "Abmelden",
-    empty: "Noch keine Kontaktanfragen.",
-    loading: "Wird geladen…",
-    error: "Daten konnten nicht geladen werden.",
-    noAccess:
-      "Dieses Konto hat noch keinen Admin-Zugang. Schick mir die E-Mail-Adresse unten, damit sie freigeschaltet wird.",
-    cols: {
-      date: "Datum",
-      name: "Name",
-      email: "E-Mail",
-      courseLevel: "Kurs",
-      level: "Aktuelles Niveau",
-      goal: "Ziel",
-      message: "Nachricht",
-      language: "Sprache",
-      status: "Status",
-      note: "Notiz",
-    },
-    status: { new: "Neu", in_progress: "In Arbeit", done: "Erledigt" },
-    notePlaceholder: "Private Notiz…",
-    saveNote: "Notiz speichern",
-    saved: "Gespeichert",
-  },
-} as const;
-
-export const auth = {
-  id: {
-    title: "Masuk",
-    subtitle: "Halaman ini hanya untuk pengelola situs.",
-    email: "Email",
-    password: "Kata sandi",
-    signIn: "Masuk",
-    signUp: "Buat akun",
-    toggleToSignUp: "Belum punya akun? Buat akun",
-    toggleToSignIn: "Sudah punya akun? Masuk",
-    working: "Mohon tunggu…",
-    checkEmail: "Cek email kamu untuk konfirmasi, lalu masuk.",
-  },
-  de: {
-    title: "Anmelden",
-    subtitle: "Dieser Bereich ist nur für die Verwaltung der Seite.",
-    email: "E-Mail",
-    password: "Passwort",
-    signIn: "Anmelden",
-    signUp: "Konto erstellen",
-    toggleToSignUp: "Noch kein Konto? Konto erstellen",
-    toggleToSignIn: "Schon ein Konto? Anmelden",
-    working: "Einen Moment…",
-    checkEmail: "Bitte bestätige die E-Mail und melde dich dann an.",
   },
 } as const;
