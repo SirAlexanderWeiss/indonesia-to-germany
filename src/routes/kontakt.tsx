@@ -4,7 +4,7 @@ import { useState, type FormEvent } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { kontak as kontakDict, useLang, useT } from "@/lib/i18n";
 
-export const Route = createFileRoute("/kontak")({
+export const Route = createFileRoute("/kontakt")({
   head: () => ({
     meta: [
       { title: "Kontak — Daftar Kelas Bahasa Jerman A1" },
@@ -18,9 +18,9 @@ export const Route = createFileRoute("/kontak")({
         property: "og:description",
         content: "Konsultasi gratis 20 menit sebelum mulai belajar bahasa Jerman A1.",
       },
-      { property: "og:url", content: "/kontak" },
+      { property: "og:url", content: "/kontakt" },
     ],
-    links: [{ rel: "canonical", href: "/kontak" }],
+    links: [{ rel: "canonical", href: "/kontakt" }],
   }),
   component: Kontak,
 });

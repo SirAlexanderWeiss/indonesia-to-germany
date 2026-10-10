@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { kursus as kursusDict, useT } from "@/lib/i18n";
 
-export const Route = createFileRoute("/kursus")({
+export const Route = createFileRoute("/kurse")({
   head: () => ({
     meta: [
       { title: "Kursus & Harga — Bahasa Jerman A1 Online" },
@@ -16,9 +16,9 @@ export const Route = createFileRoute("/kursus")({
         property: "og:description",
         content: "Kelas grup kecil, privat, dan persiapan ujian A1 — semua online dari Indonesia.",
       },
-      { property: "og:url", content: "/kursus" },
+      { property: "og:url", content: "/kurse" },
     ],
-    links: [{ rel: "canonical", href: "/kursus" }],
+    links: [{ rel: "canonical", href: "/kurse" }],
   }),
   component: Kursus,
 });
@@ -78,7 +78,7 @@ function Kursus() {
                   ))}
                 </ul>
                 <Link
-                  to="/kontak"
+                  to="/kontakt"
                   className={
                     featured
                       ? "mt-7 inline-flex rounded-full bg-gold px-6 py-2.5 text-sm font-semibold text-gold-foreground"

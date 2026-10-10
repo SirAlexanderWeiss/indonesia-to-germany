@@ -44,13 +44,13 @@ function Home() {
             <p className="mt-6 max-w-md text-base text-primary-foreground/85">{t.intro}</p>
             <div className="mt-9 flex flex-wrap gap-3">
               <Link
-                to="/kontak"
+                to="/kontakt"
                 className="rounded-full bg-gold px-7 py-3 text-sm font-semibold text-gold-foreground transition-transform hover:-translate-y-0.5"
               >
                 {t.ctaPrimary}
               </Link>
               <Link
-                to="/kursus"
+                to="/kurse"
                 className="rounded-full border border-primary-foreground/40 px-7 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary-foreground/10"
               >
                 {t.ctaSecondary}
@@ -107,7 +107,7 @@ function Home() {
             <p className="mt-5 text-muted-foreground">{t.aboutP1}</p>
             <p className="mt-4 text-muted-foreground">{t.aboutP2}</p>
             <Link
-              to="/tentang"
+              to="/ueber-mich"
               className="mt-7 inline-flex rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground"
             >
               {t.aboutCta}
@@ -146,7 +146,7 @@ function Home() {
           <h2 className="font-display text-3xl md:text-4xl">{t.ctaTitle}</h2>
           <p className="mx-auto mt-4 max-w-xl text-jungle-foreground/80">{t.ctaBody}</p>
           <Link
-            to="/kontak"
+            to="/kontakt"
             className="mt-8 inline-flex rounded-full bg-gold px-8 py-3 text-sm font-semibold text-gold-foreground"
           >
             {t.ctaButton}
