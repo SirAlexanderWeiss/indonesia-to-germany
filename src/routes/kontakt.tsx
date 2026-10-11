@@ -1,3 +1,4 @@
+import { createFileRoute } from '@tanstack/react-router'
 import { createFileRoute, useServerFn } from "@tanstack/react-start";
 import { useState, type FormEvent } from "react";
 
@@ -60,26 +61,31 @@ function Kontak() {
     return e;
   }
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const e = validate();
     setErrors(e);
     if (Object.keys(e).length > 0) return;
 
-    const subject = `Anfrage ${form.courseLevel} — ${form.name.trim()}`;
-    const body = [
-      `Name: ${form.name.trim()}`,
-      `E-Mail: ${form.email.trim()}`,
-      `Ziel: ${goal}`,
-      `Aktuelles Niveau: ${level}`,
-      `Kurs: ${form.courseLevel}`,
-      `Sprache: ${lang.toUpperCase()}`,
-      "",
-      form.message.trim(),
-    ].join("\n");
+    setStatus("sending");
+    const result = await sendFn({
+      data: {
+        name: form.name.trim(),
+        email: form.email.trim(),
+        goal,
+        currentLevel: level,
+        courseLevel: form.courseLevel,
+        message: form.message.trim(),
+        language: lang,
+      },
+    });
 
-    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    if (!result.ok) {
+      setStatus("failed");
+      return;
+    }
     setStatus("sent");
+    setForm({ name: "", email: "", goalIndex: 0, levelIndex: 0, courseLevel: "A1", message: "" });
   }
 
 
