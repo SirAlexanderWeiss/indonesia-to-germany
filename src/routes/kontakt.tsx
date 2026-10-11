@@ -205,9 +205,10 @@ function Kontak() {
 
           <button
             type="submit"
-            className="mt-7 w-full rounded-full bg-primary px-7 py-3 text-sm font-semibold text-primary-foreground transition-transform hover:-translate-y-0.5 sm:w-auto"
+            disabled={status === "sending"}
+            className="mt-7 w-full rounded-full bg-primary px-7 py-3 text-sm font-semibold text-primary-foreground transition-transform hover:-translate-y-0.5 disabled:opacity-60 sm:w-auto"
           >
-            {t.submit}
+            {status === "sending" ? t.sending : t.submit}
           </button>
 
           {status === "sent" && (
@@ -215,7 +216,11 @@ function Kontak() {
               {t.sent}
             </p>
           )}
-
+          {status === "failed" && (
+            <p className="mt-4 rounded-xl bg-destructive/10 px-4 py-3 text-sm text-destructive">
+              {t.failed}
+            </p>
+          )}
         </form>
 
         <aside className="space-y-6">
