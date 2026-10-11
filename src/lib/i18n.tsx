@@ -327,7 +327,9 @@ export const kontak = {
     messagePlaceholder:
       "Halo! Saya berencana pindah ke Jerman tahun depan dan ingin mulai dari A1…",
     submit: "Kirim pesan",
+    sending: "Mengirim…",
     sent: "Terima kasih! Pesan kamu sudah terkirim. Saya akan balas lewat email secepatnya.",
+    failed: "Maaf, pengiriman gagal. Coba lagi atau tulis langsung ke email saya.",
     subject: "Pendaftaran kelas A1",
     labels: { name: "Nama", email: "Email", goal: "Tujuan", level: "Level" },
     errors: {
@@ -376,7 +378,9 @@ export const kontak = {
     messagePlaceholder:
       "Hallo! Ich möchte nächstes Jahr nach Deutschland ziehen und bei A1 anfangen…",
     submit: "Nachricht senden",
+    sending: "Wird gesendet…",
     sent: "Danke! Deine Nachricht ist angekommen. Ich melde mich per E-Mail.",
+    failed: "Leider ist der Versand fehlgeschlagen. Versuch es nochmal oder schreib mir direkt.",
     subject: "Anmeldung A1-Kurs",
     labels: { name: "Name", email: "E-Mail", goal: "Ziel", level: "Niveau" },
     errors: {
