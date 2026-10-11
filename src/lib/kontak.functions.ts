@@ -46,7 +46,7 @@ function b64encodeUtf8(text: string): string {
 function encodeHeader(value: string): string {
   return /^[\x00-\x7F]*$/.test(value)
     ? value
-    : `=?UTF-8?B?${Buffer.from(value, "utf8").toString("base64")}?=`;
+    : `=?UTF-8?B?${b64encodeUtf8(value)}?=`;
 }
 
 function buildRawEmail(input: z.infer<typeof inputSchema>): string {
