@@ -1,9 +1,9 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute } from '@tanstack/react-router'
 import { useState, type FormEvent } from "react";
+import { useServerFn } from "@tanstack/react-start";
 
+import { sendContactRequest } from "@/lib/kontak.functions";
 import { kontak as kontakDict, useLang, useT } from "@/lib/i18n";
-
-const CONTACT_EMAIL = "hallo@example.com";
 
 export const Route = createFileRoute("/kontakt")({
   head: () => ({
@@ -31,6 +31,7 @@ type Errors = Partial<Record<"name" | "email" | "message", string>>;
 function Kontak() {
   const t = useT(kontakDict);
   const { lang } = useLang();
+  const sendFn = useServerFn(sendContactRequest);
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -40,7 +41,7 @@ function Kontak() {
     message: "",
   });
   const [errors, setErrors] = useState<Errors>({});
-  const [status, setStatus] = useState<"idle" | "sent">("idle");
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "failed">("idle");
 
   const goal = t.goals[form.goalIndex] ?? t.goals[0];
   const level = t.levels[form.levelIndex] ?? t.levels[0];
@@ -60,26 +61,31 @@ function Kontak() {
     return e;
   }
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const e = validate();
     setErrors(e);
     if (Object.keys(e).length > 0) return;
 
-    const subject = `Anfrage ${form.courseLevel} — ${form.name.trim()}`;
-    const body = [
-      `Name: ${form.name.trim()}`,
-      `E-Mail: ${form.email.trim()}`,
-      `Ziel: ${goal}`,
-      `Aktuelles Niveau: ${level}`,
-      `Kurs: ${form.courseLevel}`,
-      `Sprache: ${lang.toUpperCase()}`,
-      "",
-      form.message.trim(),
-    ].join("\n");
+    setStatus("sending");
+    const result = await sendFn({
+      data: {
+        name: form.name.trim(),
+        email: form.email.trim(),
+        goal,
+        currentLevel: level,
+        courseLevel: form.courseLevel,
+        message: form.message.trim(),
+        language: lang,
+      },
+    });
 
-    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    if (!result.ok) {
+      setStatus("failed");
+      return;
+    }
     setStatus("sent");
+    setForm({ name: "", email: "", goalIndex: 0, levelIndex: 0, courseLevel: "A1", message: "" });
   }
 
 
@@ -199,9 +205,10 @@ function Kontak() {
 
           <button
             type="submit"
-            className="mt-7 w-full rounded-full bg-primary px-7 py-3 text-sm font-semibold text-primary-foreground transition-transform hover:-translate-y-0.5 sm:w-auto"
+            disabled={status === "sending"}
+            className="mt-7 w-full rounded-full bg-primary px-7 py-3 text-sm font-semibold text-primary-foreground transition-transform hover:-translate-y-0.5 disabled:opacity-60 sm:w-auto"
           >
-            {t.submit}
+            {status === "sending" ? t.sending : t.submit}
           </button>
 
           {status === "sent" && (
@@ -209,7 +216,11 @@ function Kontak() {
               {t.sent}
             </p>
           )}
-
+          {status === "failed" && (
+            <p className="mt-4 rounded-xl bg-destructive/10 px-4 py-3 text-sm text-destructive">
+              {t.failed}
+            </p>
+          )}
         </form>
 
         <aside className="space-y-6">
