@@ -1,9 +1,8 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useServerFn } from "@tanstack/react-start";
 import { useState, type FormEvent } from "react";
 
+import { sendContactRequest } from "@/lib/kontak.functions";
 import { kontak as kontakDict, useLang, useT } from "@/lib/i18n";
-
-const CONTACT_EMAIL = "hallo@example.com";
 
 export const Route = createFileRoute("/kontakt")({
   head: () => ({
@@ -31,6 +30,7 @@ type Errors = Partial<Record<"name" | "email" | "message", string>>;
 function Kontak() {
   const t = useT(kontakDict);
   const { lang } = useLang();
+  const sendFn = useServerFn(sendContactRequest);
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -40,7 +40,7 @@ function Kontak() {
     message: "",
   });
   const [errors, setErrors] = useState<Errors>({});
-  const [status, setStatus] = useState<"idle" | "sent">("idle");
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "failed">("idle");
 
   const goal = t.goals[form.goalIndex] ?? t.goals[0];
   const level = t.levels[form.levelIndex] ?? t.levels[0];
